@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "Dark Mode & Light Mode",
+    "version": "1.0.5",
+    "icons":{
+        "16": "icon.jpg"
+    },
+    "browser_action": {
+        "default_title": "LD",
+        "default_popup": "interface.html",
+        "default_icon": "icon.jpg"
+    },
+        "background": {
+            "scripts": ["popup.js"],
+            "persistent":true
+        },
+    "permissions": [
+        "tabs",
+        "https://*/*",
+        "http://*/*"
+      ]
+}
