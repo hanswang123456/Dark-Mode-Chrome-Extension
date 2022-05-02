@@ -18,17 +18,11 @@ if(document.querySelector(".popup")){
     turnOn = true;
     circle.style.animation = "toggle 0s forwards"
     button.style.animation = "toggleBG 0s forwards"
-    chrome.tabs.executeScript(
-      {file:"dark.js"}
-    );
   }
   else{//light mode
     turnOn == false;
     circle.style.animation = "untoggle 0s forwards"
     button.style.animation = "untoggleBG 0s forwards"
-    chrome.tabs.executeScript(
-      {file:"light.js"}
-    );
   }
 
   //add listner to button click (user changing modes)
@@ -58,7 +52,25 @@ if(document.querySelector(".popup")){
   });
 }
 
-//catch event of user opening new tabs and update to dark mode
+//catch event of user switching to other opened tabs and update to dark mode/light Mode
+chrome.tabs.onActivated.addListener(()=>{
+  //activate dark mode
+  if(window.localStorage.getItem("mode") == "dark"){
+    turnOn = true;
+    chrome.tabs.executeScript(
+      {file:"dark.js"}
+    );
+  }
+  //light mode
+  else{
+    turnOn = false;
+    chrome.tabs.executeScript(
+      {file:"light.js"}
+    );
+  }
+});
+
+//catch event of user opening new tabs and update to dark mode/light mode
 chrome.tabs.onUpdated.addListener(()=>{
   //activate dark mode
   if(window.localStorage.getItem("mode") == "dark"){
